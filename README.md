@@ -1,2 +1,2 @@
 # scrapify
-Usage: python3 scrapify.py <shopify site url>
+Usage: python3 scrapify.py <shopify site url> <output.csv>

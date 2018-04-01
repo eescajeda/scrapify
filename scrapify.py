@@ -3,8 +3,9 @@ import csv
 import urllib.request
 import sys
 
-base_url = sys.argv[1]
-url = base_url + '/products.json'
+baseUrl = sys.argv[1]
+fileOut = sys.argv[2]
+url = baseUrl + '/products.json'
 
 def getPage(page):
 	reqData = urllib.request.urlopen(url + '?page={}'.format(page))
@@ -23,7 +24,7 @@ def genColorSwatch(c):
 	swatch = swatchURL +c.lower().replace(' ', '-').replace('/', '-')+'.jpg'
 	return swatch
 
-with open('products.csv', 'w') as f:
+with open(fileOut, 'w') as f:
 	writer = csv.writer(f)
 	writer.writerow(['Title','Product Type','Sku','Price','Color','Color Swatch','Image'])
 	page = 1
