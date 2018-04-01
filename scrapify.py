@@ -6,7 +6,7 @@ import sys
 base_url = sys.argv[1]
 url = base_url + '/products.json'
 
-def get_page(page):
+def getPage(page):
 	reqData = urllib.request.urlopen(url + '?page={}'.format(page))
 	data = reqData.read()
 	encoding = reqData.info().get_content_charset('utf-8')
@@ -20,14 +20,14 @@ def cleanURL(url):
 def genColorSwatch(c):
 	swatchURL = 'https://cdn.shopify.com/s/files/1/0856/7558/t/31/assets/'
 	c = c.split(' -')[0]
-	swatch = swatchURL +c.lower().replace(' ', '-')+'.jpg'
+	swatch = swatchURL +c.lower().replace(' ', '-').replace('/', '-')+'.jpg'
 	return swatch
 
 with open('products.csv', 'w') as f:
 	writer = csv.writer(f)
 	writer.writerow(['Title','Product Type','Sku','Price','Color','Color Swatch','Image'])
 	page = 1
-	products = get_page(page)
+	products = getPage(page)
 	while products:
 		for product in products:
 			title = product['title']
@@ -44,5 +44,5 @@ with open('products.csv', 'w') as f:
 				row = [title, type, sku, price, color.split(' -')[0], color_swatch, image]
 				writer.writerow(row)
 		page += 1
-		products = get_page(page)
+		products = getPage(page)
 
